@@ -8,7 +8,7 @@ def calc(num_1: float, num_2: float, command: str) -> tp.Union[float, str]:
     if command == "-":
         return num_1 - num_2
     if command == "/":
-        if num_2 == '0':
+        if num_2 == 0:
             return('Нельзя делить на ноль')
         else:
             return round(num_1 / num_2, 1)
@@ -25,9 +25,15 @@ def calc(num_1: float, num_2: float, command: str) -> tp.Union[float, str]:
     if command == "tan":
         return round(math.tan(math.radians(num_1)), 1)
     if command == "lg":
-        return round(math.log10(num_1), 1)
+        if num_1 < 0:
+            return('Не существует логарифма от отрицательного числа')
+        else:
+            return round(math.log10(num_1), 1)
     if command == "ln":
-        return round(math.log1p(num_1), 1)
+        if num_1 < 0:
+            return ('Не существует логарифма от отрицательного числа')
+        else:
+            return round(math.log1p(num_1), 1)
     else:
         return f"Неизвестный оператор: {command!r}."
 
