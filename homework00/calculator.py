@@ -8,7 +8,10 @@ def calc(num_1: float, num_2: float, command: str) -> tp.Union[float, str]:
     if command == "-":
         return num_1 - num_2
     if command == "/":
-        return round(num_1 / num_2, 1)
+        if num_2 == '0':
+            return('Нельзя делить на ноль')
+        else:
+            return round(num_1 / num_2, 1)
     if command == "*":
         return num_1 * num_2
     if command == "^":
