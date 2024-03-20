@@ -78,8 +78,10 @@ def get_block(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[s
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
     n = int(math.sqrt(len(grid)))
-    start_row, start_col = pos[0] - pos[0] % n, pos[1] - pos[1] % n     # координаты левого верхнего угла
-    block_values = [grid[i][j] for i in range(start_row, start_row + n) for j in range(start_col, start_col + n)]       # достаем значение по координатам в и, жи
+    start_row, start_col = pos[0] - pos[0] % n, pos[1] - pos[1] % n  # координаты левого верхнего угла
+    block_values = [
+        grid[i][j] for i in range(start_row, start_row + n) for j in range(start_col, start_col + n)
+    ]  # достаем значение по координатам в и, жи
     return block_values
 
 
@@ -95,7 +97,7 @@ def find_empty_positions(grid: tp.List[tp.List[str]]) -> tp.Optional[tp.Tuple[in
     for i in range(len(grid)):
         for j in range(len(grid[i])):
             if grid[i][j] == ".":
-                return i, j         # возращается индекс пустой ячейки
+                return i, j  # возращается индекс пустой ячейки
     return None
 
 
@@ -114,8 +116,8 @@ def find_possible_values(grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -
     row_values = set(grid[row])
     col_values = set(grid[i][col] for i in range(len(grid)))
     block_size = int(math.sqrt(len(grid)))
-    block_row, block_col = row // block_size, col // block_size     # индекс блока в которую попадает элемент
-    start_row, start_col = block_row * block_size, block_col * block_size       # все углы всех блоков
+    block_row, block_col = row // block_size, col // block_size  # индекс блока в которую попадает элемент
+    start_row, start_col = block_row * block_size, block_col * block_size  # все углы всех блоков
     block_values = set(
         grid[i][j] for i in range(start_row, start_row + block_size) for j in range(start_col, start_col + block_size)
     )
@@ -151,7 +153,7 @@ def check_solution(solution: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
 
     for i in range(len(solution)):
-        row_values = set(get_row(solution, (i, 0)))     # не может быть повторов в сете
+        row_values = set(get_row(solution, (i, 0)))  # не может быть повторов в сете
         col_values = set(get_col(solution, (0, i)))
         if len(row_values) != len(solution) or len(col_values) != len(solution) or row_values != col_values:
             return False
